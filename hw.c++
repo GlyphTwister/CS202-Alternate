@@ -9,23 +9,22 @@ using std::string;
 int main(int argc, char** argv) {
 
     string program_name = argv[0];
-    string input_filename = argv[1];
 
-    if (argc != 2) {
+    if (argc != 3) {
         std::cerr << "Usage: ./hw input.txt output.txt" << std::endl;
         return 1;
     }
 
-    std::ifstream file(input_filename);
     std::vector<string> arguments;
-    auto temp;
-    while (input_filename >> temp) {
-        arguments.push_back(temp);
+    for (int i = 0; i < argc; i += 1) {
+        arguments.push_back(argv[i]);
     }
-
-    std::ofstream output_file;
-    while (file >> temp) {
-        output_file << std::fixed << std::setprecision(2) << temp << std::endl;
+    
+    double temp;
+    std::ifstream file1(arguments[1]);
+    std::ofstream file2(arguments[2]);
+    while (file1 >> temp) {
+        file2 << std::fixed << std::setprecision(2) << temp << "\n";
     }
 
     return 0;
