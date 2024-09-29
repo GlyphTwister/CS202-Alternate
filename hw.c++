@@ -23,8 +23,24 @@ int main(int argc, char** argv) {
     double temp;
     std::ifstream file1(arguments[1]);
     std::ofstream file2(arguments[2]);
+
+    if (!file1.is_open()) {
+        std::cerr << "Error: Could not open input file " << arguments[1] << std::endl;
+        return 2;
+    }
+
+    if (!file2.is_open()) {
+        std::cerr << "Error: Could not open output file " << arguments[2] << std::endl;
+        return 3;
+    }
+
     while (file1 >> temp) {
         file2 << std::fixed << std::setprecision(2) << temp << "\n";
+    }
+
+    if (!file1.eof()) {
+        std::cerr << "Error: Failed to read entire input file" << std::endl;
+        return 4;
     }
 
     return 0;
